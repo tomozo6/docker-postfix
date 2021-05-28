@@ -6,7 +6,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 RUN apt-get update && apt-get install -y \
     supervisor postfix sasl2-bin libsasl2-modules libsasl2-2 libsasl2-dev \
-    telnet vim mailutils && \
+    telnet && \
     rm -rf /var/lib/apt/lists/*
 
 # Supervisor
