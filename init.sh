@@ -4,9 +4,16 @@
 # -----------------------------------------------------------------------------
 postconf -e "inet_protocols = ${INET_PROTOCOLS:=ipv4}"
 postconf -e "mynetworks = ${MYNETWORKS:=127.0.0.0/8}"
+postconf -e "mydestination = ${MYDESTINATION:=localhost}"
 
 if [ -n "${RELAYHOST}" ]; then
     postconf -e "relayhost = ${RELAYHOST}"
+fi
+
+if [ -n "${TRANSPORT}" ]; then
+    postconf -e "transport_maps = hash:/etc/postfix/transport"
+    echo -e "${TRANSPORT}" > /etc/postfix/transport
+    postmap /etc/postfix/transport
 fi
 
 # -----------------------------------------------------------------------------
