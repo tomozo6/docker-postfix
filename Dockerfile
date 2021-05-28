@@ -16,6 +16,8 @@ COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 # Postfix
 RUN postconf -F '*/*/chroot = n'
 RUN postconf -e "maillog_file = /dev/stdout"
+RUN postconf -e "smtpd_banner = ESMTP MTA"
+RUN postconf -e "disable_vrfy_command = yes"
 
 # Init
 COPY init.sh /init.sh
