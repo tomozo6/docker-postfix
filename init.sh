@@ -29,6 +29,16 @@ else
 fi
 
 # -----------------------------------------------------------------------------
+# Envelope-From (Return-Path)
+# -----------------------------------------------------------------------------
+if [ -n "${ENVELOPE_FROM}" ]; then
+    postconf -e "sender_canonical_classes = envelope_sender"
+    postconf -e "sender_canonical_maps = hash:/etc/postfix/canonical"
+    echo ${ENVELOPE_FROM} > /etc/postfix/canonical
+    postmap /etc/postfix/canonical
+fi
+
+# -----------------------------------------------------------------------------
 # TLS
 # -----------------------------------------------------------------------------
 postconf -e "smtp_use_tls = ${SMTP_USE_TLS:=yes}"
