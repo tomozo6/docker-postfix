@@ -33,9 +33,8 @@ fi
 # -----------------------------------------------------------------------------
 if [ -n "${ENVELOPE_FROM}" ]; then
     postconf -e "sender_canonical_classes = envelope_sender"
-    postconf -e "sender_canonical_maps = hash:/etc/postfix/canonical"
-    echo ${ENVELOPE_FROM} > /etc/postfix/canonical
-    postmap /etc/postfix/canonical
+    postconf -e "sender_canonical_maps = regexp:/etc/postfix/canonical.regexp"
+    echo ${ENVELOPE_FROM} > /etc/postfix/canonical.regexp
 fi
 
 # -----------------------------------------------------------------------------
